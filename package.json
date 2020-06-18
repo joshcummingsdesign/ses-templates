@@ -2,6 +2,7 @@
   "name": "aws-templates",
   "private": true,
   "scripts": {
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -10,10 +11,11 @@
   "devDependencies": {
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
+    "live-server": "^1.2.1",
     "prettier": "^2.0.5"
   },
   "lint-staged": {
-    "./**/*.{ts,tsx,js,json}": [
+    "./**/*.{html,js,json}": [
       "prettier --write"
     ]
   },
