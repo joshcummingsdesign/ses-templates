@@ -1,12 +1,13 @@
 const chalk = require('chalk');
 const fs = require('fs');
 const util = require('util');
-const { TEMPLATE_DIR } = require('./constants');
+const { PUBLIC_DIR } = require('./constants');
 
 module.exports = async ({ name }) => {
   const readFile = util.promisify(fs.readFile);
-  const dir = `${TEMPLATE_DIR}/${name}`;
+  const dir = `${PUBLIC_DIR}/${name}`;
 
+  console.log('Reading template parts...');
   try {
     const SubjectPart = await readFile(`${dir}/template.json`, 'utf8').then(
       (res) => JSON.parse(res).subject

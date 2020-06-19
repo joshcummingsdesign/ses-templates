@@ -19,4 +19,8 @@ My Amazon SES templates.
 
 3.  Start the local development server
 
-        yarn start
+        yarn ses start
+
+4. See the available list of commands
+
+        yarn ses --help
