@@ -19,7 +19,7 @@ Amazon SES template management.
 
 3.  Start the local development server
 
-        yarn start
+        yarn ses start
 
 ## Commands
 

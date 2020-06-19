@@ -1,6 +1,6 @@
-const chalk = require('chalk');
 const fs = require('fs');
 const util = require('util');
+const chalk = require('chalk');
 const { PUBLIC_DIR } = require('./constants');
 
 module.exports = async ({ name }) => {
@@ -25,6 +25,6 @@ module.exports = async ({ name }) => {
     };
   } catch (error) {
     console.log(chalk.red(error));
-    process.exit(1);
+    throw new Error('read');
   }
 };
