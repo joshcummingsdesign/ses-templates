@@ -1,6 +1,6 @@
 # SES Templates
 
-My Amazon SES templates.
+Amazon SES template management.
 
 ## Requirements
 
@@ -19,8 +19,14 @@ My Amazon SES templates.
 
 3.  Start the local development server
 
-        yarn ses start
+        yarn start
 
-4. See the available list of commands
+## Commands
 
-        yarn ses --help
+Run `ses` commands with yarn by using
+
+    yarn ses [command]
+
+To see a list of commands run
+
+    yarn ses --help

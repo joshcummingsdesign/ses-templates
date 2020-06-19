@@ -2,6 +2,7 @@
   "name": "aws-templates",
   "private": true,
   "scripts": {
+    "start": "node src/scripts/start.js",
     "ses": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
