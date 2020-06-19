@@ -1,27 +1,26 @@
 const chalk = require('chalk');
 
-const errorCodes = {
-  ok: 0,
-  default: 1,
-  read: 2,
-  write: 3,
-  delete: 4,
-  notFound: 5,
-  conflict: 6,
-  proxy: 7,
+const ErrorTypes = {
+  OK: 'OK',
+  DEFAULT: 'DEFAULT',
+  IO: 'IO',
+  NOT_FOUND: 'NOT_FOUND',
+  CONFLICT: 'CONFLICT',
+  PROXY: 'PROXY',
 };
 
-const exitOnError = (error) => {
-  console.log(chalk.red(error));
-  if (errorCodes[error.message] !== undefined) {
-    process.exit(errorCodes[error.message]);
-  }
-  process.exit(errorCodes.default);
+const ErrorCode = {
+  OK: 0,
+  DEFAULT: 1,
+  IO: 2,
+  NOT_FOUND: 3,
+  CONFLICT: 4,
+  PROXY: 5,
 };
 
-const errors = (errorCode) => (error) => {
+const exitWithCode = (errorCode) => (error) => {
   console.log(chalk.red(error));
   process.exit(errorCode);
 };
 
-module.exports = { errorCodes, exitOnError, errors };
+module.exports = { ErrorTypes, ErrorCode, exitWithCode };
