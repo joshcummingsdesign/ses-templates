@@ -20,7 +20,6 @@ module.exports = async () => {
   results.forEach(({ name, error }) => {
     if (error) {
       console.log(chalk.red(error));
-      console.log(chalk.red(`${name}: Unable to push to SES`));
     } else {
       console.log(chalk.green(`${name}: Pushed to SES successfully!`));
     }
