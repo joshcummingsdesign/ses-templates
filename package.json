@@ -2,7 +2,6 @@
   "name": "aws-templates",
   "private": true,
   "scripts": {
-    "start": "node src/scripts/start.js",
     "ses": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +9,7 @@
     "aws-sdk": "^2.700.0",
     "chalk": "^4.1.0",
     "live-server": "^1.2.1",
+    "rimraf": "^3.0.2",
     "yargs": "^15.3.1"
   },
   "devDependencies": {

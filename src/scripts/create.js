@@ -1,18 +1,20 @@
-const chalk = require('chalk');
 const fs = require('fs');
-const util = require('util');
-const errors = require('./errors');
-const write = require('./write');
-const { PUBLIC_DIR } = require('./constants');
+const chalk = require('chalk');
+const get = require('./utils/get');
+const write = require('./utils/write');
+const addToIndex = require('./utils/addToIndex');
+const { PUBLIC_DIR } = require('./utils/constants');
+const { errorCodes, exitOnError } = require('./utils/error');
 
 module.exports = async ({ name }) => {
-  const readFile = util.promisify(fs.readFile);
-  const writeFile = util.promisify(fs.writeFile);
+  const existing = await get(name).catch(exitOnError);
   const dir = `${PUBLIC_DIR}/${name}`;
 
-  if (fs.existsSync(dir)) {
+  if (existing || fs.existsSync(dir)) {
     console.error(chalk.red(`Template ${name} already exists`));
-    process.exit(1);
+    process.exit(errorCodes.conflict);
+  } else {
+    fs.mkdirSync(dir);
   }
 
   console.log(`Creating template ${name}...`);
@@ -37,20 +39,8 @@ module.exports = async ({ name }) => {
       '</html>\n',
     TextPart: 'Hello {{name}},\nThis is a test message.\nRegards, Josh\n',
   };
+  await write({ name, template }).catch(exitOnError);
+  await addToIndex(name).catch(exitOnError);
 
-  await write({ name, template }).catch(errors(2));
-
-  console.log('Updating site index...');
-  const indexFile = `${PUBLIC_DIR}/index.html`;
-  const spaces = '        ';
-  const comment = '<!-- {{ TemplatePart }} // Do not remove this comment -->';
-
-  const homepage = await readFile(indexFile, 'utf8').catch(errors(3));
-
-  const updatedHomepage = homepage.replace(
-    comment,
-    `<li><a href="/${name}">${name}</a></li>\n${spaces}${comment}`
-  );
-
-  await writeFile(indexFile, updatedHomepage).catch(errors(4));
+  console.log(chalk.green(`Tempalte ${name} created successfully!`));
 };
