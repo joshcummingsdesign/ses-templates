@@ -1,5 +1,6 @@
 const cli = require('yargs');
 const start = require('./scripts/start');
+const list = require('./scripts/list');
 const create = require('./scripts/create');
 const push = require('./scripts/push');
 const pull = require('./scripts/pull');
@@ -15,6 +16,7 @@ cli
   .scriptName('ses')
   .version('v1.0.0')
   .command('start', 'start the local development server', start)
+  .command('list', 'list all templates in ses', list)
   .command('create <name>', 'create a new template', buildName, create)
   .command('push [name]', 'push templates to SES', buildName, push)
   .command('pull [name]', 'pull templates from SES', buildName, pull)
