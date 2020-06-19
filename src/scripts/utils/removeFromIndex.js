@@ -1,8 +1,10 @@
+const chalk = require('chalk');
 const replaceIndex = require('./replaceIndex');
+const { listItem } = require('./templates');
 
 module.exports = async (name) => {
-  console.log('Cleaning up site index...');
+  console.log(chalk.gray(`${name}: Removing from site index...`));
   const spaces = ' '.repeat(8);
-  const listItem = `${spaces}<li><a href="/${name}">${name}</a></li>\n`;
-  await replaceIndex(listItem, '');
+  const item = `${spaces}${listItem(name)}\n`;
+  await replaceIndex(item, '');
 };

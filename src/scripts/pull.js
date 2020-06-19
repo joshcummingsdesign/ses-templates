@@ -2,18 +2,18 @@ const chalk = require('chalk');
 const get = require('./utils/get');
 const write = require('./utils/write');
 const addToIndex = require('./utils/addToIndex');
-const { errorCodes, exitOnError } = require('./utils/error');
+const { ErrorCode } = require('./utils/error');
 
 module.exports = async ({ name }) => {
-  const template = await get(name).catch(exitOnError);
+  const template = await get(name);
 
   if (!template) {
-    console.log(chalk.red(`Template ${name} does not exist`));
-    process.exit(errorCodes.notFound);
+    console.log(chalk.red(`${name}: Template does not exist`));
+    process.exit(ErrorCode.NOT_FOUND);
   }
 
-  await write({ name, template }).catch(exitOnError);
-  await addToIndex(name).catch(exitOnError);
+  await write({ name, template });
+  await addToIndex(name);
 
-  console.log(chalk.green(`Successfully pulled ${name} from SES!`));
+  console.log(chalk.green(`${name}: Successfully pulled from SES!`));
 };

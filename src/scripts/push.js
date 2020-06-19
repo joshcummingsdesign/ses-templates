@@ -1,22 +1,17 @@
 const chalk = require('chalk');
-const SES = require('./utils/ses');
-const get = require('./utils/get');
-const read = require('./utils/read');
-const { errorCodes, exitOnError, errors } = require('./utils/error');
+const pushOne = require('./utils/pushOne');
+const pushAll = require('./utils/pushAll');
+const { ErrorCode } = require('./utils/error');
 
-module.exports = async ({ name }) => {
-  const existing = await get(name).catch(exitOnError);
-  const template = await read({ name }).catch(exitOnError);
-  const successMessage = chalk.green(`Successfully pushed ${name} to SES!`);
-
-  if (existing) {
-    console.log('Updating template in SES...');
-    await SES.updateTemplate(template).promise().catch(errors(errorCodes.proxyError));
-    console.log(successMessage);
+module.exports = async (argv) => {
+  if (argv.name) {
+    const res = await pushOne(argv);
+    if (res.error) {
+      process.exit(ErrorCode[error.message]);
+    } else {
+      console.log(chalk.green(`${res.name}: Pushed to SES successfully!`));
+    }
   } else {
-    console.log('Template not found in SES');
-    console.log('Creating template in SES...');
-    await SES.createTemplate(template).promise().catch(errors(errorCodes.proxyError));
-    console.log(successMessage);
+    await pushAll();
   }
 };

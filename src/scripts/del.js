@@ -1,27 +1,26 @@
 const util = require('util');
-const chalk = require('chalk');
 const rimraf = require('rimraf');
+const chalk = require('chalk');
 const SES = require('./utils/ses');
 const get = require('./utils/get');
 const removeFromIndex = require('./utils/removeFromIndex');
+const { ErrorCode, exitWithCode } = require('./utils/error');
 const { PUBLIC_DIR } = require('./utils/constants');
-const { errorCodes, exitOnError, errors } = require('./utils/error');
 
 module.exports = async ({ name }) => {
   const rm = util.promisify(rimraf);
-  const existing = await get(name).catch(exitOnError);
+  const existing = await get(name);
   const dir = `${PUBLIC_DIR}/${name}`;
 
-  console.log('Cleaning up directories...');
-  await rm(dir).catch(errors(errorCodes.delete));
-  await removeFromIndex(name).catch(exitOnError);
+  console.log(chalk.gray(`${name}: Removing directory...`));
+  await rm(dir).catch(exitWithCode(ErrorCode.IO));
+  await removeFromIndex(name);
 
   if (!existing) {
-    console.error(chalk.red(`Template ${name} does not exist`));
-    process.exit(errorCodes.conflict);
+    console.error(`${name}: Template not found in SES`);
+  } else {
+    await SES.deleteTemplate({ TemplateName: name }).promise().catch(exitWithCode(ErrorCode.PROXY));
   }
 
-  await SES.deleteTemplate({ TemplateName: name }).promise().catch(errors(errorCodes.proxyError));
-
-  console.log(chalk.green(`Tempalte ${name} deleted successfully!`));
+  console.log(chalk.green(`${name}: Template deleted successfully!`));
 };
