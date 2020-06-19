@@ -12,7 +12,7 @@ module.exports = async ({ name }) => {
   const dir = `${PUBLIC_DIR}/${name}`;
 
   if (existing || fs.existsSync(dir)) {
-    console.error(chalk.red(`${name}: Template already exists`));
+    console.log(chalk.red(`${name}: Template already exists`));
     process.exit(ErrorCode.CONFLICT);
   } else {
     fs.mkdirSync(dir);

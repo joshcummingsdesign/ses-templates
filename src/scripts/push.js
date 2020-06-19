@@ -7,7 +7,7 @@ module.exports = async (argv) => {
   if (argv.name) {
     const res = await pushOne(argv);
     if (res.error) {
-      process.exit(ErrorCode[error.message]);
+      process.exit(ErrorCode[res.error.message]);
     } else {
       console.log(chalk.green(`${res.name}: Pushed to SES successfully!`));
     }

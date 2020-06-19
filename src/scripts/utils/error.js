@@ -1,6 +1,6 @@
 const chalk = require('chalk');
 
-const ErrorTypes = {
+const ErrorType = {
   OK: 'OK',
   DEFAULT: 'DEFAULT',
   IO: 'IO',
@@ -23,4 +23,4 @@ const exitWithCode = (errorCode) => (error) => {
   process.exit(errorCode);
 };
 
-module.exports = { ErrorTypes, ErrorCode, exitWithCode };
+module.exports = { ErrorType, ErrorCode, exitWithCode };

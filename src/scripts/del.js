@@ -17,10 +17,9 @@ module.exports = async ({ name }) => {
   await removeFromIndex(name);
 
   if (!existing) {
-    console.error(`${name}: Template not found in SES`);
+    console.log(`${name}: Template not found in SES`);
   } else {
     await SES.deleteTemplate({ TemplateName: name }).promise().catch(exitWithCode(ErrorCode.PROXY));
+    console.log(chalk.green(`${name}: Template deleted successfully!`));
   }
-
-  console.log(chalk.green(`${name}: Template deleted successfully!`));
 };
