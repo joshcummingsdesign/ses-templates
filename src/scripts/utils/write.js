@@ -2,6 +2,7 @@ const fs = require('fs');
 const util = require('util');
 const chalk = require('chalk');
 const { PUBLIC_DIR } = require('./constants');
+const { ErrorCode, exitWithCode } = require('./error');
 
 module.exports = async ({ name, template }) => {
   const writeFile = util.promisify(fs.writeFile);
@@ -12,13 +13,10 @@ module.exports = async ({ name, template }) => {
     fs.mkdirSync(dir);
   }
 
-  console.log('Writing to template parts to file system...');
-  try {
-    await writeFile(`${dir}/index.html`, HtmlPart);
-    await writeFile(`${dir}/index.txt`, TextPart);
-    await writeFile(`${dir}/template.json`, JSON.stringify({ subject: SubjectPart }));
-  } catch (error) {
-    console.log(chalk.red(error));
-    throw new Error('write');
-  }
+  console.log(chalk.gray(`${name}: Writing template files...`));
+  await writeFile(`${dir}/index.html`, HtmlPart).catch(exitWithCode(ErrorCode.IO));
+  await writeFile(`${dir}/index.txt`, TextPart).catch(exitWithCode(ErrorCode.IO));
+  await writeFile(`${dir}/template.json`, JSON.stringify({ subject: SubjectPart })).catch(
+    exitWithCode(ErrorCode.IO)
+  );
 };

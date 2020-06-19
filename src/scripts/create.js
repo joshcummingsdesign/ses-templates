@@ -3,44 +3,30 @@ const chalk = require('chalk');
 const get = require('./utils/get');
 const write = require('./utils/write');
 const addToIndex = require('./utils/addToIndex');
+const { subjectTemplate, htmlTemplate, textTemplate } = require('./utils/templates');
 const { PUBLIC_DIR } = require('./utils/constants');
-const { errorCodes, exitOnError } = require('./utils/error');
+const { ErrorCode } = require('./utils/error');
 
 module.exports = async ({ name }) => {
-  const existing = await get(name).catch(exitOnError);
+  const existing = await get(name);
   const dir = `${PUBLIC_DIR}/${name}`;
 
   if (existing || fs.existsSync(dir)) {
-    console.error(chalk.red(`Template ${name} already exists`));
-    process.exit(errorCodes.conflict);
+    console.error(chalk.red(`${name}: Template already exists`));
+    process.exit(ErrorCode.CONFLICT);
   } else {
     fs.mkdirSync(dir);
   }
 
-  console.log(`Creating template ${name}...`);
+  console.log(chalk.gray(`${name}: Creating template...`));
   const template = {
     TemplateName: name,
-    SubjectPart: 'Hello {{name}}',
-    HtmlPart:
-      '<!DOCTYPE html>\n' +
-      '<html lang="en">\n' +
-      '  <head>\n' +
-      '    <meta charset="UTF-8" />\n' +
-      '    <meta name="viewport" content="width=device-width, initial-scale=1.0" />\n' +
-      '    <title>My Template</title>\n' +
-      '  </head>\n' +
-      '  <body>\n' +
-      '    <main>\n' +
-      '      <p>Hello {{name}},</p>\n' +
-      '      <p>This is a test message.</p>\n' +
-      '      <p>Regards, Josh</p>\n' +
-      '    </main>\n' +
-      '  </body>\n' +
-      '</html>\n',
-    TextPart: 'Hello {{name}},\nThis is a test message.\nRegards, Josh\n',
+    SubjectPart: subjectTemplate,
+    HtmlPart: htmlTemplate,
+    TextPart: textTemplate,
   };
-  await write({ name, template }).catch(exitOnError);
-  await addToIndex(name).catch(exitOnError);
+  await write({ name, template });
+  await addToIndex(name);
 
-  console.log(chalk.green(`Tempalte ${name} created successfully!`));
+  console.log(chalk.green(`${name}: Template created successfully!`));
 };
