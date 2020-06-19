@@ -1,19 +1,10 @@
 const chalk = require('chalk');
-const SES = require('./ses');
+const listAll = require('./listAll');
 const pullOne = require('./pullOne');
-const { ErrorType, ErrorCode, exitWithCode } = require('./error');
+const { ErrorType } = require('./error');
 
 module.exports = async () => {
-  const templates = await SES.listTemplates()
-    .promise()
-    .then((res) => {
-      if (res.TemplatesMetadata.length) {
-        return res.TemplatesMetadata.map((t) => ({ name: t.Name }));
-      }
-      return [];
-    })
-    .catch(exitWithCode(ErrorCode.PROXY));
-
+  const templates = await listAll();
   const results = await Promise.all(templates.map((t) => pullOne(t).catch((e) => e)));
 
   results.forEach(({ name, error }) => {
