@@ -1,1 +1,1 @@
-exports.TEMPLATE_DIR = `${__dirname}/../public/templates`;
+exports.PUBLIC_DIR = `${__dirname}/../public`;
