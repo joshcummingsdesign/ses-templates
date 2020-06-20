@@ -8,23 +8,11 @@ Amazon SES template management made easy.
 
 ## Getting Started
 
-### Globally (not recommended)
+SES Templates allows you to easily manage your AWS SES templates by giving you a local development server with live reloading to test out your changes, as well as some helpful commands to push and pull your changes to and from SES.
 
-Although you can install ses-templates globally by running
+To get started, simply make a new project to manage your templates.
 
-    npm install -g ses-templates
-
-and run commands like so,
-
-    ses-templates <command>
-
-we recommend setting up a local project to manage your templates.
-
-### Locally (recommended)
-
-You can run ses-templates locally with npx by doing the following:
-
-1. Create a new project and run
+1. Create a new directory and run
 
         npm init
 
@@ -32,7 +20,7 @@ You can run ses-templates locally with npx by doing the following:
 
         npm install ses-templates
 
-2.  Make sure you have the following variables in your environment
+2.  Set the following environment variables
 
         PORT=<number> # the local dev server port
         AWS_ACCESS_KEY_ID=<string>
@@ -43,7 +31,7 @@ You can run ses-templates locally with npx by doing the following:
 
         npx ses-templates start
 
-Alternatively, you can add this to your `package.json` scripts:
+You can add this to your `package.json` scripts if you prefer:
 
 ```json
 "scripts": {
@@ -53,11 +41,24 @@ Alternatively, you can add this to your `package.json` scripts:
 
 ## Commands
 
-To see a list of commands run
+```
+Options:
+  -V, --version   output the version number
+  -h, --help      display help for command
 
-    npx ses-templates --help
+Commands:
+  start           start the local development server
+  list            list all templates in SES
+  create <name>   create a new template
+  push [name]     push templates to SES
+  pull [name]     pull templates from SES
+  delete <name>   delete a template from SES
+  help [command]  display help for command
+```
 
 ## Contributing
+
+### Starting the local development environment
 
 1.  Install the project dependencies
 
