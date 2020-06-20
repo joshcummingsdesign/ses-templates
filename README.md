@@ -8,9 +8,29 @@ Amazon SES template management made easy.
 
 ## Getting Started
 
-1.  Install
+### Globally (not recommended)
 
-        npm install -g ses-templates
+Although you can install ses-templates globally by running
+
+    npm install -g ses-templates
+
+and run commands like so,
+
+    ses-templates <command>
+
+we recommend setting up a local project to manage your templates.
+
+### Locally (recommended)
+
+You can run ses-templates locally with npx by doing the following:
+
+1. Create a new project and run
+
+        npm init
+
+2. Install ses-templates
+
+        npm install ses-templates
 
 2.  Make sure you have the following variables in your environment
 
@@ -21,13 +41,13 @@ Amazon SES template management made easy.
 
 3.  Start the local dev server
 
-        ses-templates start
+        npx ses-templates start
 
 ## Commands
 
 To see a list of commands run
 
-    ses-templates --help
+    npx ses-templates --help
 
 ## Contributing
 
