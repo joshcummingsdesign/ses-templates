@@ -14,10 +14,10 @@ export const create = (cli: Command) =>
     .command('create <name>')
     .description('create a new template')
     .action(async (name: string) => {
+      await spawnPublic();
+
       const existing = await get(name);
       const dir = `${PUBLIC_DIR}/${name}`;
-
-      await spawnPublic();
 
       if (existing || fs.existsSync(dir)) {
         console.log(chalk.red(`${name}: Template already exists`));

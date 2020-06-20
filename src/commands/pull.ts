@@ -1,5 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
+import { spawnPublic } from '../lib/spawnPublic';
 import { pullOne } from '../lib/pullOne';
 import { pullAll } from '../lib/pullAll';
 import { ErrorCode, ErrorName } from '../utils/error';
@@ -9,6 +10,8 @@ export const pull = (cli: Command) =>
     .command('pull [name]')
     .description('pull templates from SES')
     .action(async (name?: string) => {
+      await spawnPublic();
+
       if (name) {
         const res = await pullOne(name);
 
