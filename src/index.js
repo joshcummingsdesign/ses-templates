@@ -1,10 +1,10 @@
 const cli = require('yargs');
-const start = require('./scripts/start');
-const list = require('./scripts/list');
-const create = require('./scripts/create');
-const push = require('./scripts/push');
-const pull = require('./scripts/pull');
-const del = require('./scripts/del');
+const start = require('./lib/start');
+const list = require('./lib/list');
+const create = require('./lib/create');
+const push = require('./lib/push');
+const pull = require('./lib/pull');
+const del = require('./lib/del');
 
 const buildName = (yargs) =>
   yargs.positional('name', {

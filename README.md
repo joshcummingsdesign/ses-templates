@@ -1,6 +1,6 @@
 # SES Templates
 
-Amazon SES template management.
+Amazon SES template management made easy.
 
 ## Requirements
 
