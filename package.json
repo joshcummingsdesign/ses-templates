@@ -59,5 +59,9 @@
     "service",
     "template",
     "management"
+  ],
+  "files": [
+    "bin",
+    "dist"
   ]
 }
