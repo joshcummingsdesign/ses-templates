@@ -1,9 +1,9 @@
-const fs = require('fs');
-const util = require('util');
-const { PUBLIC_DIR } = require('./constants');
-const { ErrorCode, exitWithCode } = require('./error');
+import fs from 'fs';
+import util from 'util';
+import { PUBLIC_DIR } from '../utils/constants';
+import { exitWithCode, ErrorCode } from '../utils/error';
 
-module.exports = async (searchValue, replaceValue) => {
+export const replaceIndex = async (searchValue: string, replaceValue: string) => {
   const readFile = util.promisify(fs.readFile);
   const writeFile = util.promisify(fs.writeFile);
   const indexFile = `${PUBLIC_DIR}/index.html`;
