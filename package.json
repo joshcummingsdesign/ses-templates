@@ -1,6 +1,28 @@
 {
   "name": "ses-templates",
-  "private": true,
+  "version": "1.0.0",
+  "description": "Amazon SES template management made easy.",
+  "author": "Josh Cummings <joshcummingsdesign@gmail.com> (https://joshcummingsdesign.com)",
+  "license": "MIT",
+  "homepage": "https://github.com/joshcummingsdesign/ses-templates#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joshcummingsdesign/ses-templates.git"
+  },
+  "bugs": {
+    "url": "https://github.com/joshcummingsdesign/ses-templates/issues"
+  },
+  "keywords": [
+    "amazon",
+    "aws",
+    "ses",
+    "simple",
+    "email",
+    "service",
+    "template",
+    "management"
+  ],
+  "main": "node src/index.js",
   "scripts": {
     "ses": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -4,7 +4,7 @@ module.exports = () => {
   liveServer.start({
     port: process.env.PORT,
     host: 'localhost',
-    root: 'src/public',
+    root: 'public',
     open: true,
   });
 };
