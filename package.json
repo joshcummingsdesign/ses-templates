@@ -6,8 +6,8 @@
     "ses-templates": "bin/ses-templates"
   },
   "scripts": {
-    "start": "rimraf dist && tsc -w",
-    "build": "rimraf dist && tsc",
+    "start": "./scripts/prebuild.sh && tsc -w",
+    "build": "./scripts/prebuild.sh && tsc",
     "test": "jest"
   },
   "dependencies": {

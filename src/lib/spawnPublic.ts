@@ -8,6 +8,6 @@ export const spawnPublic = async () => {
   const cp = util.promisify(ncp);
 
   if (!fs.existsSync(PUBLIC_DIR)) {
-    await cp(`${__dirname}/../templates/public`, PUBLIC_DIR).catch(exitWithCode(ErrorCode.IO));
+    await cp(`${__dirname}/../templates/public`, `${PUBLIC_DIR}`).catch(exitWithCode(ErrorCode.IO));
   }
 };
