@@ -1,4 +1,5 @@
 import { Command } from 'commander';
+import path from 'path';
 import util from 'util';
 import rimraf from 'rimraf';
 import chalk from 'chalk';
@@ -15,7 +16,7 @@ export const del = async (cli: Command) =>
     .action(async (name: string) => {
       const rm = util.promisify(rimraf);
       const existing = await get(name);
-      const dir = `${PUBLIC_DIR}/${name}`;
+      const dir = path.join(PUBLIC_DIR, name);
 
       console.log(chalk.gray(`${name}: Removing directory...`));
 

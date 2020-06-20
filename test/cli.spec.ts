@@ -6,7 +6,7 @@ const exec = (
   args: string[],
   callback: (error: ExecException | null, stdout: string, stderr: string) => void
 ) => {
-  const cmd = path.join(__dirname, '..', 'bin/ses-templates');
+  const cmd = path.join(__dirname, '..', 'bin', 'ses-templates');
   const opts: ExecFileOptions = { timeout: 2000, maxBuffer: 1024 };
   execFile(cmd, args, opts, callback);
 };
