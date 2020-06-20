@@ -1,5 +1,5 @@
 {
-  "name": "aws-templates",
+  "name": "ses-templates",
   "private": true,
   "scripts": {
     "ses": "node src/index.js",
