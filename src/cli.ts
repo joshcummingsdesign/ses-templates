@@ -1,4 +1,5 @@
 import { Command } from 'commander';
+import { VERSION } from './utils/constants';
 
 export class CLI {
   /**
@@ -11,7 +12,7 @@ export class CLI {
    * Inject the cli object into each command and parse argv.
    */
   init(): void {
-    const cli = new Command().version('1.0.1');
+    const cli = new Command().version(VERSION);
 
     this.commands.forEach((command) => {
       command(cli);
