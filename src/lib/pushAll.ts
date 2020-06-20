@@ -1,19 +1,18 @@
-const fs = require('fs');
-const util = require('util');
-const chalk = require('chalk');
-const pushOne = require('./pushOne');
-const { PUBLIC_DIR } = require('./constants');
-const { ErrorCode, exitWithCode } = require('./error');
+import fs from 'fs';
+import util from 'util';
+import chalk from 'chalk';
+import { PUBLIC_DIR } from '../utils/constants';
+import { exitWithCode, ErrorCode } from '../utils/error';
+import { pushOne } from './pushOne';
 
-module.exports = async () => {
+export const pushAll = async () => {
   const readdir = util.promisify(fs.readdir);
+
   const directories = await readdir(PUBLIC_DIR, { withFileTypes: true }).catch(
     exitWithCode(ErrorCode.IO)
   );
 
-  const templates = directories
-    .filter((dirent) => dirent.isDirectory())
-    .map((dir) => ({ name: dir.name }));
+  const templates = directories.filter((dirent) => dirent.isDirectory()).map((dir) => dir.name);
 
   const results = await Promise.all(templates.map((t) => pushOne(t).catch((e) => e)));
 

@@ -1,9 +1,10 @@
-const chalk = require('chalk');
-const SES = require('./ses');
-const { ErrorCode } = require('./error');
+import chalk from 'chalk';
+import SES from '../ses';
+import { ErrorCode } from '../utils/error';
 
-module.exports = async (name) => {
+export const get = async (name: string) => {
   console.log(chalk.gray(`${name}: Checking for template in SES...`));
+
   const template = await SES.getTemplate({ TemplateName: name })
     .promise()
     .then((res) => {
