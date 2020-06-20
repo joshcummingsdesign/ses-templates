@@ -11,7 +11,7 @@ export class CLI {
    * Inject the cli object into each command and parse argv.
    */
   init(): void {
-    const cli = new Command().version('1.0.0');
+    const cli = new Command().version('1.0.1');
 
     this.commands.forEach((command) => {
       command(cli);
