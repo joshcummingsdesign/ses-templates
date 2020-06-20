@@ -1,5 +1,6 @@
 import { Command } from 'commander';
 import fs from 'fs';
+import path from 'path';
 import chalk from 'chalk';
 import { get } from '../lib/get';
 import { write } from '../lib/write';
@@ -17,7 +18,7 @@ export const create = (cli: Command) =>
       await spawnPublic();
 
       const existing = await get(name);
-      const dir = `${PUBLIC_DIR}/${name}`;
+      const dir = path.join(PUBLIC_DIR, name);
 
       if (existing || fs.existsSync(dir)) {
         console.log(chalk.red(`${name}: Template already exists`));

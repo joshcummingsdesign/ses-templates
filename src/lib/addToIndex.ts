@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import util from 'util';
 import chalk from 'chalk';
 import { replaceIndex } from './replaceIndex';
@@ -8,7 +9,7 @@ import { exitWithCode, ErrorCode } from '../utils/error';
 
 export const addToIndex = async (name: string) => {
   const readFile = util.promisify(fs.readFile);
-  const indexFile = `${PUBLIC_DIR}/index.html`;
+  const indexFile = path.join(PUBLIC_DIR, 'index.html');
   const homepage = await readFile(indexFile, 'utf8').catch(exitWithCode(ErrorCode.IO));
   const item = listItem(name);
 
