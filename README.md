@@ -1,5 +1,7 @@
 # SES Templates
 
+[![joshcummingsdesign](https://circleci.com/gh/joshcummingsdesign/ses-templates.svg?style=svg)](https://circleci.com/gh/joshcummingsdesign/ses-templates)
+
 Amazon SES template management made easy.
 
 ## Requirements

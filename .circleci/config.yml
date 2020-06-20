@@ -12,6 +12,9 @@ jobs:
           npm-version: '6.14.4'
       - node/install-packages
       - run:
+          name: Build
+          command: npm run build
+      - run:
           name: Run unit tests
           command: npm test
 workflows:
