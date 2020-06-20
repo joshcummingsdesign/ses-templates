@@ -45,10 +45,10 @@ You can run ses-templates locally with npx by doing the following:
 
 Alternatively, you can add this to your `package.json` scripts:
 
-```
+```json
 "scripts": {
-  "start": "ses-templates start",
-},
+  "start": "ses-templates start"
+}
 ```
 
 ## Commands
