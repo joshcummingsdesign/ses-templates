@@ -2,6 +2,44 @@
   "name": "ses-templates",
   "version": "1.0.0",
   "description": "Amazon SES template management made easy.",
+  "bin": {
+    "ses-templates": "bin/ses-templates"
+  },
+  "scripts": {
+    "start": "rimraf dist && tsc -w",
+    "build": "rimraf dist && tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.701.0",
+    "chalk": "^4.1.0",
+    "commander": "^5.1.0",
+    "live-server": "^1.2.1",
+    "ncp": "^2.0.0",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.0",
+    "@types/ncp": "^2.0.4",
+    "@types/node": "^14.0.13",
+    "@types/rimraf": "^3.0.0",
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "lint-staged": "^10.2.11",
+    "prettier": "^2.0.5",
+    "ts-jest": "^26.1.0",
+    "typescript": "^3.9.5"
+  },
+  "lint-staged": {
+    "./**/*.{html,ts,js,json}": [
+      "prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "author": "Josh Cummings <joshcummingsdesign@gmail.com> (https://joshcummingsdesign.com)",
   "license": "MIT",
   "homepage": "https://github.com/joshcummingsdesign/ses-templates#readme",
@@ -21,32 +59,5 @@
     "service",
     "template",
     "management"
-  ],
-  "main": "node src/index.js",
-  "scripts": {
-    "ses": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "aws-sdk": "^2.700.0",
-    "chalk": "^4.1.0",
-    "live-server": "^1.2.1",
-    "rimraf": "^3.0.2",
-    "yargs": "^15.3.1"
-  },
-  "devDependencies": {
-    "husky": "^4.2.5",
-    "lint-staged": "^10.2.11",
-    "prettier": "^2.0.5"
-  },
-  "lint-staged": {
-    "./**/*.{html,js,json}": [
-      "prettier --write"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  }
+  ]
 }
