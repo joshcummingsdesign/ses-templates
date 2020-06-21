@@ -4,7 +4,7 @@ import util from 'util';
 import { PUBLIC_DIR } from '../utils/constants';
 import { exitWithCode, ErrorCode } from '../utils/error';
 
-export const replaceIndex = async (searchValue: string, replaceValue: string) => {
+export const replaceIndex = async (searchValue: string | RegExp, replaceValue: string) => {
   const readFile = util.promisify(fs.readFile);
   const writeFile = util.promisify(fs.writeFile);
   const indexFile = path.join(PUBLIC_DIR, 'index.html');

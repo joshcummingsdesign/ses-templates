@@ -3,7 +3,7 @@ import path from 'path';
 import util from 'util';
 import chalk from 'chalk';
 import { replaceIndex } from './replaceIndex';
-import { listItem, templatePart } from '../templates';
+import { listItem } from '../templates';
 import { PUBLIC_DIR } from '../utils/constants';
 import { exitWithCode, ErrorCode } from '../utils/error';
 
@@ -14,11 +14,19 @@ export const addToIndex = async (name: string) => {
   const item = listItem(name);
 
   if (!homepage.includes(item)) {
-    const spaces = ' '.repeat(8);
-    const replaceValue = `${item}\n${spaces}${templatePart}`;
+    const regexString =
+      '<ul id="ses-templates">(\\s*)(((\\s*)<li><a href="(.+)">(.+)<\\/a><\\/li>)*)';
+
+    const searchValueMatch = homepage.match(regexString + '(\\s*)<\\/ul>');
+    const searchValue = searchValueMatch && searchValueMatch.length ? searchValueMatch[0] : '';
+
+    const templateMatch = homepage.match(new RegExp(regexString));
+    const template = templateMatch && templateMatch.length ? templateMatch[0] : '';
+
+    const replaceValue = `${template}\n${' '.repeat(8)}${item}\n${' '.repeat(6)}</ul>`;
 
     console.log(chalk.gray(`${name}: Adding to site index...`));
 
-    await replaceIndex(templatePart, replaceValue);
+    await replaceIndex(searchValue, replaceValue);
   }
 };
