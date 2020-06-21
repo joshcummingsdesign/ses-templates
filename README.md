@@ -7,6 +7,7 @@ Amazon SES template management made easy.
 ## Requirements
 
 - Node ^13.12.0
+- npm ^6.14.4
 
 ## Getting Started
 
@@ -57,6 +58,10 @@ Commands:
   delete <name>   delete a template from SES
   help [command]  display help for command
 ```
+
+## Examples
+
+Take a look at our [example project](https://github.com/joshcummingsdesign/jcd-ses-templates) for more details.
 
 ## Contributing
 
