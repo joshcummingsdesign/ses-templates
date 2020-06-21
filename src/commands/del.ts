@@ -1,4 +1,5 @@
 import { Command } from 'commander';
+import fs from 'fs';
 import path from 'path';
 import util from 'util';
 import rimraf from 'rimraf';
@@ -18,10 +19,11 @@ export const del = async (cli: Command) =>
       const existing = await get(name);
       const dir = path.join(PUBLIC_DIR, name);
 
-      console.log(chalk.gray(`${name}: Removing directory...`));
-
-      await rm(dir).catch(exitWithCode(ErrorCode.IO));
-      await removeFromIndex(name);
+      if (fs.existsSync(PUBLIC_DIR)) {
+        console.log(chalk.gray(`${name}: Removing directory...`));
+        await rm(dir).catch(exitWithCode(ErrorCode.IO));
+        await removeFromIndex(name);
+      }
 
       if (!existing) {
         console.log(`${name}: Template not found in SES`);
