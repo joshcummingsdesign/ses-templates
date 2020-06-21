@@ -1,6 +1,6 @@
 {
   "name": "ses-templates",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Amazon SES template management made easy.",
   "bin": {
     "ses-templates": "bin/ses-templates"
