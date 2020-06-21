@@ -18,6 +18,4 @@ export const htmlTemplate = `<!DOCTYPE html>
 
 export const textTemplate = 'Hello {{name}},\nThis is a test message.\nRegards, Josh\n';
 
-export const templatePart = '<!-- {{ templatePart }} // Do not remove this comment -->';
-
 export const listItem = (name: string) => `<li><a href="/${name}">${name}</a></li>`;

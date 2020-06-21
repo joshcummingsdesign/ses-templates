@@ -6,8 +6,8 @@
     "ses-templates": "bin/ses-templates"
   },
   "scripts": {
-    "start": "./scripts/prebuild.sh && tsc -w",
-    "build": "./scripts/prebuild.sh && tsc",
+    "start": "scripty",
+    "build": "scripty",
     "test": "jest"
   },
   "dependencies": {
@@ -27,6 +27,7 @@
     "jest": "^26.0.1",
     "lint-staged": "^10.2.11",
     "prettier": "^2.0.5",
+    "scripty": "^2.0.0",
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.5"
   },
