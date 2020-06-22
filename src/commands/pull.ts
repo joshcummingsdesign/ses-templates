@@ -1,11 +1,11 @@
-import { Command } from 'commander';
 import chalk from 'chalk';
+import { CliCommand } from '../interfaces';
 import { spawnPublic } from '../lib/spawnPublic';
 import { pullOne } from '../lib/pullOne';
 import { pullAll } from '../lib/pullAll';
 import { ErrorCode, ErrorName } from '../utils/error';
 
-export const pull = (cli: Command) =>
+export const pull: CliCommand = (cli, ses) =>
   cli
     .command('pull [name]')
     .description('pull templates from SES')
@@ -13,7 +13,7 @@ export const pull = (cli: Command) =>
       await spawnPublic();
 
       if (name) {
-        const res = await pullOne(name);
+        const res = await pullOne(name, ses);
 
         if (res.error) {
           const message = res.error.message as ErrorName;
@@ -22,6 +22,6 @@ export const pull = (cli: Command) =>
           console.log(chalk.green(`${res.name}: Pulled from SES successfully!`));
         }
       } else {
-        await pullAll();
+        await pullAll(ses);
       }
     });

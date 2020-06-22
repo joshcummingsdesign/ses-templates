@@ -1,11 +1,11 @@
 import chalk from 'chalk';
-import { listAll } from './listAll';
 import { pullOne } from './pullOne';
-import { EError } from '../utils/error';
+import { EError, exitWithCode, ErrorCode } from '../utils/error';
+import { SesService } from '../services/ses.service';
 
-export const pullAll = async () => {
-  const templates = await listAll();
-  const results = await Promise.all(templates.map((name) => pullOne(name).catch((e) => e)));
+export const pullAll = async (ses: SesService) => {
+  const templates = await ses.listTemplates().catch(exitWithCode(ErrorCode.PROXY));
+  const results = await Promise.all(templates.map((name) => pullOne(name, ses).catch((e) => e)));
 
   results.forEach(({ name, error }) => {
     if (error) {
