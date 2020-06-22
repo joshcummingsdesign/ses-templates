@@ -1,7 +1,7 @@
-import { Command } from 'commander';
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
+import { CliCommand } from '../interfaces';
 import { get } from '../lib/get';
 import { write } from '../lib/write';
 import { addToIndex } from '../lib/addToIndex';
@@ -10,14 +10,14 @@ import { subjectTemplate, htmlTemplate, textTemplate } from '../templates';
 import { PUBLIC_DIR } from '../utils/constants';
 import { ErrorCode } from '../utils/error';
 
-export const create = (cli: Command) =>
+export const create: CliCommand = (cli, ses) =>
   cli
     .command('create <name>')
     .description('create a new template')
     .action(async (name: string) => {
       await spawnPublic();
 
-      const existing = await get(name);
+      const existing = await get(name, ses);
       const dir = path.join(PUBLIC_DIR, name);
 
       if (existing || fs.existsSync(dir)) {
