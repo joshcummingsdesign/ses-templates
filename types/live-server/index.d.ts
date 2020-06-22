@@ -23,4 +23,6 @@ declare module 'live-server' {
   }
 
   export function start(params: LiveServerParams): void;
+
+  export function shutdown(): void;
 }
