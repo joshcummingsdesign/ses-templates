@@ -1,23 +1,26 @@
 import { Command } from 'commander';
 import { VERSION } from './utils/constants';
+import { SesService } from './services/ses.service';
+import { CliCommand } from './interfaces';
+import { start, list, create, push, pull, del } from './commands';
 
-export class CLI {
-  /**
-   * CLI constructor.
-   * @param commands An array of of commands.
-   */
-  constructor(private commands: Function[]) {}
+export class CliFactory {
+  private cli: Command;
+  private commands: CliCommand[];
+
+  constructor(private sesService: SesService) {
+    this.cli = new Command().version(VERSION) as Command;
+    this.commands = [start, list, create, push, pull, del];
+  }
 
   /**
-   * Inject the cli object into each command and parse argv.
+   * Inject the cli object and sesService into each command and parse argv.
    */
   init(): void {
-    const cli = new Command().version(VERSION);
-
     this.commands.forEach((command) => {
-      command(cli);
+      command(this.cli, this.sesService);
     });
 
-    cli.parse(process.argv);
+    this.cli.parse(process.argv);
   }
 }

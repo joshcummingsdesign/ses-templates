@@ -2,9 +2,10 @@ import { get } from './get';
 import { write } from './write';
 import { addToIndex } from './addToIndex';
 import { EError } from '../utils/error';
+import { SesService } from '../services/ses.service';
 
-export const pullOne = async (name: string) => {
-  const template = await get(name);
+export const pullOne = async (name: string, ses: SesService) => {
+  const template = await get(name, ses);
 
   let error: Error | undefined;
   if (template) {

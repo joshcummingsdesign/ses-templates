@@ -1,16 +1,16 @@
-import { Command } from 'commander';
 import chalk from 'chalk';
+import { CliCommand } from '../interfaces';
 import { pushOne } from '../lib/pushOne';
 import { pushAll } from '../lib/pushAll';
 import { ErrorCode, ErrorName } from '../utils/error';
 
-export const push = (cli: Command) =>
+export const push: CliCommand = (cli, ses) =>
   cli
     .command('push [name]')
     .description('push templates to SES')
     .action(async (name?: string) => {
       if (name) {
-        const res = await pushOne(name);
+        const res = await pushOne(name, ses);
 
         if (res.error) {
           const message = res.error.message as ErrorName;
@@ -19,6 +19,6 @@ export const push = (cli: Command) =>
           console.log(chalk.green(`${res.name}: Pushed to SES successfully!`));
         }
       } else {
-        await pushAll();
+        await pushAll(ses);
       }
     });
