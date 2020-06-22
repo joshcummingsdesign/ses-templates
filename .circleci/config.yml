@@ -1,15 +1,19 @@
 version: 2.1
 orbs:
   node: 'circleci/node@3.0.0'
+image: &image
+  docker:
+    - image: circleci/node:13.12.0
+versions: &versions
+  node/install:
+    node-version: '13.12.0'
+    npm-version: '6.14.4'
 jobs:
   test:
-    docker:
-      - image: circleci/node:13.12.0
+    <<: *image
     steps:
       - checkout
-      - node/install:
-          node-version: '13.12.0'
-          npm-version: '6.14.4'
+      - <<: *versions
       - node/install-packages
       - run:
           name: Build
@@ -17,7 +21,33 @@ jobs:
       - run:
           name: Run unit tests
           command: npm test
+      - persist_to_workspace:
+          root: .
+          paths: .
+  deploy:
+    <<: *image
+    steps:
+      - attach_workspace:
+          at: .
+      - <<: *versions
+      - run:
+          name: Publish to npm
+          command: |
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+            npm publish
 workflows:
-  test:
+  version: 2
+  test-and-deploy:
     jobs:
-      - test
+      - test:
+          filters:
+            tags:
+              only: /.*/
+      - deploy:
+          requires:
+            - test
+          filters:
+            tags:
+              only: /^v.*/
+            branches:
+              ignore: /.*/
