@@ -3,7 +3,7 @@ import liveServer from 'live-server';
 import config from '../config';
 import { spawnPublic } from '../lib/spawnPublic';
 
-export const serverOptions = {
+export const serverParams = {
   port: Number(config.port),
   host: 'localhost',
   root: 'public',
@@ -16,5 +16,5 @@ export const start = (cli: Command) =>
     .description('start the local development server')
     .action(async () => {
       await spawnPublic();
-      liveServer.start(serverOptions);
+      liveServer.start(serverParams);
     });
