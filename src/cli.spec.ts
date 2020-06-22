@@ -1,14 +1,12 @@
 import util from 'util';
 import path from 'path';
 import rimraf from 'rimraf';
-import request from 'supertest';
+import req from 'supertest';
 import liveServer from 'live-server';
 import { execFile, ExecException, ExecFileOptions } from 'child_process';
-import { serverOptions } from '../src/commands/start';
+import { serverParams } from '../src/commands/start';
 import { spawnPublic } from './lib/spawnPublic';
 import { VERSION, PUBLIC_DIR } from '../src/utils/constants';
-
-const testServerParams = { ...serverOptions, logLevel: 0 };
 
 const exec = (
   args: string[],
@@ -20,10 +18,18 @@ const exec = (
 };
 
 describe('command line usage', () => {
+  let request: req.SuperTest<req.Test>;
+
   beforeEach(async () => {
     const rm = util.promisify(rimraf);
     await rm(PUBLIC_DIR);
     await spawnPublic();
+    liveServer.start({ ...serverParams, logLevel: 0 });
+    request = req(`http://localhost:${serverParams.port}`);
+  });
+
+  afterEach(() => {
+    liveServer.shutdown();
   });
 
   it('--version', (done) => {
@@ -46,8 +52,6 @@ describe('command line usage', () => {
   });
 
   it('create', async () => {
-    liveServer.start(testServerParams);
-    await request('http://localhost:8081').get('/').expect(200);
-    liveServer.shutdown();
+    await request.get('/');
   });
 });
