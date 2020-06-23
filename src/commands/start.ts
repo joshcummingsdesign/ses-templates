@@ -1,6 +1,6 @@
 import liveServer from 'live-server';
 import config from '../config';
-import { CliCommand } from '../interfaces';
+import { CliCommand } from '../cli';
 import { spawnPublic } from '../lib/spawnPublic';
 
 export const serverParams = {

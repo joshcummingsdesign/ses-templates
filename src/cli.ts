@@ -3,6 +3,8 @@ import { VERSION } from './utils/constants';
 import { SesService } from './services/ses.service';
 import { start, list, create, push, pull, del } from './commands';
 
+export type CliCommand = (cli: Command, ses: SesService) => void;
+
 export class CliFactory {
   /**
    * Injects the program and SES service into each command.
