@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.0",
+    "@types/live-server": "^1.2.0",
     "@types/lodash": "^4.14.156",
     "@types/ncp": "^2.0.4",
     "@types/node": "^14.0.13",
