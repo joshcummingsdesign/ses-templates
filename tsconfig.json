@@ -9,5 +9,6 @@
     "typeRoots": ["types", "node_modules/@types"],
     "outDir": "dist"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/**/*.spec.ts", "src/**/__fixtures__"]
 }
