@@ -128,7 +128,7 @@ describe('command line usage', () => {
       jest.spyOn(process, 'exit').mockImplementationOnce((() => {}) as any);
       await cli.run(`npx ses-templates create ${testTemplate.TemplateName}`);
 
-      // stdout should indicate push was successful
+      // stdout should indicate template already exists
       expect(
         findInStdout(writeSpy, `${testTemplate.TemplateName}: Template already exists`)
       ).toBeTruthy();
@@ -239,7 +239,7 @@ describe('command line usage', () => {
         findInStdout(writeSpy, `${testTemplate.TemplateName}: Template deleted successfully!`)
       ).toBeTruthy();
 
-      // Index should be updated with new item
+      // Item should be removed from index
       const { text } = await request.get('/').expect(200);
       expect(text.includes(listItem(testTemplate.TemplateName))).toBeFalsy();
     });
@@ -248,7 +248,7 @@ describe('command line usage', () => {
       jest.spyOn(sesService, 'getTemplate').mockRejectedValueOnce(new Error('does not exist'));
       await cli.run(`npx ses-templates delete ${testTemplate.TemplateName}`);
 
-      // stdout should indicate deletion was successful
+      // stdout should indicate template not found
       expect(
         findInStdout(writeSpy, `${testTemplate.TemplateName}: Template not found in SES`)
       ).toBeTruthy();
