@@ -2,7 +2,6 @@ import util from 'util';
 import rimraf from 'rimraf';
 import req from 'supertest';
 import liveServer, { LiveServerParams } from 'live-server';
-import { Command } from 'commander';
 import { flatten } from 'lodash';
 import { CliFactory } from './cli';
 import { serverParams } from '../src/commands/start';
@@ -10,7 +9,7 @@ import { spawnPublic } from '../src/lib/spawnPublic';
 import { PUBLIC_DIR } from '../src/utils/constants';
 import sesService from '../src/services/ses.service';
 import { testTemplate } from './__fixtures__/template';
-import { read } from './lib/read';
+import { readTemplateFiles } from './lib/readTemplateFiles';
 import { listItem } from './templates';
 import { ErrorCode } from './utils/error';
 
@@ -60,7 +59,7 @@ describe('command line usage', () => {
 
   beforeAll(() => {
     // Bootstrap cli
-    cli = new CliFactory(new Command() as Command, sesService);
+    cli = new CliFactory(sesService);
 
     // Start test server
     liveServer.start(testServerParams);
@@ -98,7 +97,6 @@ describe('command line usage', () => {
   describe('create', () => {
     it('should create a template', async () => {
       jest.spyOn(sesService, 'getTemplate').mockRejectedValueOnce(new Error('does not exist'));
-
       await cli.run(`npx ses-templates create ${testTemplate.TemplateName}`);
 
       // stdout should indicate creation was successful
@@ -107,7 +105,7 @@ describe('command line usage', () => {
       ).toBeTruthy();
 
       // Should be able to read template values
-      const { Template } = await read(testTemplate.TemplateName);
+      const { Template } = await readTemplateFiles(testTemplate.TemplateName);
       expect(Template).toEqual(testTemplate);
 
       // Index should be updated with new item
@@ -117,7 +115,6 @@ describe('command line usage', () => {
 
     it('should exit if template already exists', async () => {
       jest.spyOn(process, 'exit').mockImplementationOnce((() => {}) as any);
-
       await cli.run(`npx ses-templates create ${testTemplate.TemplateName}`);
 
       // stdout should indicate push was successful
@@ -182,7 +179,7 @@ describe('command line usage', () => {
       ).toBeTruthy();
 
       // Should be able to read template values
-      const { Template } = await read(testTemplate.TemplateName);
+      const { Template } = await readTemplateFiles(testTemplate.TemplateName);
       expect(Template).toEqual(testTemplate);
 
       // Index should be updated with new item
@@ -208,7 +205,7 @@ describe('command line usage', () => {
       ).toBeTruthy();
 
       // Should be able to read template values
-      const { Template } = await read(testTemplate.TemplateName);
+      const { Template } = await readTemplateFiles(testTemplate.TemplateName);
       expect(Template).toEqual(testTemplate);
 
       // Index should be updated with new item

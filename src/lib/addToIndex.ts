@@ -7,6 +7,9 @@ import { listItem } from '../templates';
 import { PUBLIC_DIR } from '../utils/constants';
 import { exitWithCode, ErrorCode } from '../utils/error';
 
+/**
+ * Add a template to the `index.html` file.
+ */
 export const addToIndex = async (name: string) => {
   const readFile = util.promisify(fs.readFile);
   const indexFile = path.join(PUBLIC_DIR, 'index.html');

@@ -6,6 +6,9 @@ import { exitWithCode, ErrorCode } from '../utils/error';
 import { pushOne } from './pushOne';
 import { SesService } from '../services/ses.service';
 
+/**
+ * Push all templates to SES.
+ */
 export const pushAll = async (ses: SesService) => {
   const readdir = util.promisify(fs.readdir);
 

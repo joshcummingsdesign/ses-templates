@@ -4,6 +4,9 @@ import util from 'util';
 import { PUBLIC_DIR } from '../utils/constants';
 import { exitWithCode, ErrorCode } from '../utils/error';
 
+/**
+ * Search replace the `index.html` file.
+ */
 export const replaceIndex = async (searchValue: string | RegExp, replaceValue: string) => {
   const readFile = util.promisify(fs.readFile);
   const writeFile = util.promisify(fs.writeFile);
