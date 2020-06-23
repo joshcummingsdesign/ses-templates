@@ -19,7 +19,7 @@ jobs:
           name: Build
           command: npm run build
       - run:
-          name: Run unit tests
+          name: Run integration tests
           command: npm test
       - persist_to_workspace:
           root: .
