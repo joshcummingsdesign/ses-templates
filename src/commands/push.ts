@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { CliCommand } from '../interfaces';
+import { CliCommand } from '../cli';
 import { pushOne } from '../lib/pushOne';
 import { pushAll } from '../lib/pushAll';
 import { ErrorCode, ErrorName } from '../utils/error';

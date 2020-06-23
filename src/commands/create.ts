@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { CliCommand } from '../interfaces';
+import { CliCommand } from '../cli';
 import { get } from '../lib/get';
 import { write } from '../lib/write';
 import { addToIndex } from '../lib/addToIndex';

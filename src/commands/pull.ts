@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { CliCommand } from '../interfaces';
+import { CliCommand } from '../cli';
 import { spawnPublic } from '../lib/spawnPublic';
 import { pullOne } from '../lib/pullOne';
 import { pullAll } from '../lib/pullAll';

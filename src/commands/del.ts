@@ -3,7 +3,7 @@ import path from 'path';
 import util from 'util';
 import rimraf from 'rimraf';
 import chalk from 'chalk';
-import { CliCommand } from '../interfaces';
+import { CliCommand } from '../cli';
 import { get } from '../lib/get';
 import { removeFromIndex } from '../lib/removeFromIndex';
 import { PUBLIC_DIR } from '../utils/constants';
