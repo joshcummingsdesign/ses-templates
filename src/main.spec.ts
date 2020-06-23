@@ -51,6 +51,11 @@ const testServerParams: LiveServerParams = { ...serverParams, logLevel: 0 };
  */
 const request = req(`http://localhost:${testServerParams.port}`);
 
+/**
+ * The time in ms to wait for the test server to shut down.
+ */
+const SHUTDOWN_TIMEOUT = 5000;
+
 /*----------  Begin Tests  ----------*/
 
 describe('command line usage', () => {
@@ -79,9 +84,15 @@ describe('command line usage', () => {
     writeSpy.mockClear();
   });
 
-  afterAll(() => {
-    liveServer.shutdown();
-  }, 3000);
+  afterAll(async () => {
+    // Wait for test server to shutdown
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        liveServer.shutdown();
+        resolve();
+      }, SHUTDOWN_TIMEOUT)
+    );
+  }, SHUTDOWN_TIMEOUT);
 
   /*----------  List  ----------*/
 
