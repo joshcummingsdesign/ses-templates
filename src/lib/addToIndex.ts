@@ -20,7 +20,7 @@ export const addToIndex = async (name: string) => {
     const regexString =
       '<ul id="ses-templates">(\\s*)(((\\s*)<li><a href="(.+)">(.+)<\\/a><\\/li>)*)';
 
-    const searchValueMatch = homepage.match(regexString + '(\\s*)<\\/ul>');
+    const searchValueMatch = homepage.match(new RegExp(regexString + '(\\s*)<\\/ul>'));
     const searchValue = searchValueMatch && searchValueMatch.length ? searchValueMatch[0] : '';
 
     const templateMatch = homepage.match(new RegExp(regexString));
