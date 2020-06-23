@@ -49,3 +49,5 @@ export class SesService {
     return { message: `Template ${template.Template.TemplateName} updated` };
   }
 }
+
+export default new SesService();

@@ -22,7 +22,13 @@ declare module 'live-server' {
     middleware?: Function[];
   }
 
+  /**
+   * Start live-server.
+   */
   export function start(params: LiveServerParams): void;
 
+  /**
+   * Shutdown live-server.
+   */
   export function shutdown(): void;
 }

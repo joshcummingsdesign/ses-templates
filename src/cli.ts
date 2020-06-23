@@ -1,26 +1,31 @@
 import { Command } from 'commander';
 import { VERSION } from './utils/constants';
 import { SesService } from './services/ses.service';
-import { CliCommand } from './interfaces';
 import { start, list, create, push, pull, del } from './commands';
 
 export class CliFactory {
-  private cli: Command;
-  private commands: CliCommand[];
+  /**
+   * Injects the program and SES service into each command.
+   *
+   * @param program The commander Command instance.
+   * @param sesService The SesService instance.
+   */
+  constructor(private program: Command, private sesService: SesService) {
+    program.version(VERSION);
 
-  constructor(private sesService: SesService) {
-    this.cli = new Command().version(VERSION) as Command;
-    this.commands = [start, list, create, push, pull, del];
+    const commands = [start, list, create, push, pull, del];
+
+    commands.forEach((command) => {
+      command(this.program, this.sesService);
+    });
   }
 
   /**
-   * Inject the cli object and sesService into each command and parse argv.
+   * Run a command or begin parsing argv.
+   *
+   * @param cmd The command to run. If undefined, will parse argv.
    */
-  init(): void {
-    this.commands.forEach((command) => {
-      command(this.cli, this.sesService);
-    });
-
-    this.cli.parse(process.argv);
+  async run(cmd?: string): Promise<Command> {
+    return this.program.parseAsync(cmd ? cmd.split(' ') : process.argv);
   }
 }
