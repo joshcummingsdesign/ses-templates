@@ -1,4 +1,4 @@
-import { CliCommand } from '../interfaces';
+import { CliCommand } from '../cli';
 import { exitWithCode, ErrorCode } from '../utils/error';
 
 export const list: CliCommand = async (cli, ses) =>
