@@ -81,7 +81,7 @@ describe('command line usage', () => {
 
   afterAll(() => {
     liveServer.shutdown();
-  });
+  }, 3000);
 
   /*----------  List  ----------*/
 
