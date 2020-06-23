@@ -6,16 +6,19 @@ import { start, list, create, push, pull, del } from './commands';
 export type CliCommand = (cli: Command, ses: SesService) => void;
 
 export class CliFactory {
+  private program: Command;
+
   /**
-   * Injects the program and SES service into each command.
+   * Creates program instance and injects SES service into each command.
    *
-   * @param program The commander Command instance.
    * @param sesService The SesService instance.
    */
-  constructor(private program: Command, private sesService: SesService) {
-    program.version(VERSION);
+  constructor(private sesService: SesService) {
+    this.program = new Command() as Command;
 
-    const commands = [start, list, create, push, pull, del];
+    this.program.version(VERSION);
+
+    const commands: CliCommand[] = [start, list, create, push, pull, del];
 
     commands.forEach((command) => {
       command(this.program, this.sesService);

@@ -2,7 +2,10 @@ import chalk from 'chalk';
 import { ErrorCode } from '../utils/error';
 import { SesService } from '../services/ses.service';
 
-export const get = async (name: string, ses: SesService) => {
+/**
+ * Find a template in SES by name.
+ */
+export const findOne = async (name: string, ses: SesService) => {
   console.log(chalk.gray(`${name}: Checking for template in SES...`));
   try {
     return await ses.getTemplate(name);

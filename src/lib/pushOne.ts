@@ -1,12 +1,15 @@
 import chalk from 'chalk';
-import { get } from './get';
+import { findOne } from './findOne';
 import { EError } from '../utils/error';
-import { read } from './read';
+import { readTemplateFiles } from './readTemplateFiles';
 import { SesService } from '../services/ses.service';
 
+/**
+ * Push a template to SES.
+ */
 export const pushOne = async (name: string, ses: SesService) => {
-  const existing = await get(name, ses);
-  const template = await read(name);
+  const existing = await findOne(name, ses);
+  const template = await readTemplateFiles(name);
 
   let error: Error | undefined;
   if (existing) {

@@ -2,8 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
 import { CliCommand } from '../cli';
-import { get } from '../lib/get';
-import { write } from '../lib/write';
+import { findOne } from '../lib/findOne';
+import { writeTemplateFiles } from '../lib/writeTemplateFiles';
 import { addToIndex } from '../lib/addToIndex';
 import { spawnPublic } from '../lib/spawnPublic';
 import { subjectTemplate, htmlTemplate, textTemplate } from '../templates';
@@ -17,7 +17,7 @@ export const create: CliCommand = (cli, ses) =>
     .action(async (name: string) => {
       await spawnPublic();
 
-      const existing = await get(name, ses);
+      const existing = await findOne(name, ses);
       const dir = path.join(PUBLIC_DIR, name);
 
       if (existing || fs.existsSync(dir)) {
@@ -36,7 +36,7 @@ export const create: CliCommand = (cli, ses) =>
         TextPart: textTemplate,
       };
 
-      await write({ name, template });
+      await writeTemplateFiles({ name, template });
 
       await addToIndex(name);
 

@@ -4,7 +4,7 @@ import util from 'util';
 import rimraf from 'rimraf';
 import chalk from 'chalk';
 import { CliCommand } from '../cli';
-import { get } from '../lib/get';
+import { findOne } from '../lib/findOne';
 import { removeFromIndex } from '../lib/removeFromIndex';
 import { PUBLIC_DIR } from '../utils/constants';
 import { exitWithCode, ErrorCode } from '../utils/error';
@@ -15,7 +15,7 @@ export const del: CliCommand = async (cli, ses) =>
     .description('delete a template from SES')
     .action(async (name: string) => {
       const rm = util.promisify(rimraf);
-      const existing = await get(name, ses);
+      const existing = await findOne(name, ses);
       const dir = path.join(PUBLIC_DIR, name);
 
       if (fs.existsSync(PUBLIC_DIR)) {
