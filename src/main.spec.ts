@@ -169,7 +169,7 @@ describe('command line usage', () => {
       jest.spyOn(sesService, 'getTemplate').mockRejectedValueOnce(new Error('does not exist'));
       await cli.run(`npx ses-templates create ${testTemplate.TemplateName}`);
 
-      await cli.run(`npx ses-templates push`);
+      await cli.run('npx ses-templates push');
 
       // stdout should indicate push was successful
       expect(
