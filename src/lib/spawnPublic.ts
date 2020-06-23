@@ -5,6 +5,9 @@ import ncp from 'ncp';
 import { PUBLIC_DIR } from '../utils/constants';
 import { exitWithCode, ErrorCode } from '../utils/error';
 
+/**
+ * Create a new public directory if there isn't one already.
+ */
 export const spawnPublic = async () => {
   const cp = util.promisify(ncp);
   const dir = path.join(__dirname, '..', 'templates', 'public');

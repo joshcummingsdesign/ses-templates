@@ -6,7 +6,16 @@ import { SES } from 'aws-sdk';
 import { PUBLIC_DIR } from '../utils/constants';
 import { exitWithCode, ErrorCode } from '../utils/error';
 
-export const write = async ({ name, template }: { name: string; template: SES.Template }) => {
+/**
+ * Write template file partials via a template object.
+ */
+export const writeTemplateFiles = async ({
+  name,
+  template,
+}: {
+  name: string;
+  template: SES.Template;
+}) => {
   const writeFile = util.promisify(fs.writeFile);
   const dir = path.join(PUBLIC_DIR, name);
   const htmlFile = path.join(dir, 'index.html');

@@ -3,6 +3,9 @@ import { pullOne } from './pullOne';
 import { EError, exitWithCode, ErrorCode } from '../utils/error';
 import { SesService } from '../services/ses.service';
 
+/**
+ * Pull all templates from SES.
+ */
 export const pullAll = async (ses: SesService) => {
   const templates = await ses.listTemplates().catch(exitWithCode(ErrorCode.PROXY));
   const results = await Promise.all(templates.map((name) => pullOne(name, ses).catch((e) => e)));

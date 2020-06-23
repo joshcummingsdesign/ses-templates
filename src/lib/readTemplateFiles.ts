@@ -6,7 +6,10 @@ import { SES } from 'aws-sdk';
 import { PUBLIC_DIR } from '../utils/constants';
 import { exitWithCode, ErrorCode } from '../utils/error';
 
-export const read = async (name: string): Promise<SES.CreateTemplateRequest> => {
+/**
+ * Read template file partials and return a template object.
+ */
+export const readTemplateFiles = async (name: string): Promise<SES.CreateTemplateRequest> => {
   const readFile = util.promisify(fs.readFile);
   const dir = path.join(PUBLIC_DIR, name);
   const htmlFile = path.join(dir, 'index.html');
