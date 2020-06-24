@@ -1,6 +1,6 @@
 {
   "name": "ses-templates",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Amazon SES template management made easy.",
   "bin": {
     "ses-templates": "bin/ses-templates"
@@ -34,7 +34,6 @@
     "scripty": "^2.0.0",
     "supertest": "^4.0.2",
     "ts-jest": "^26.1.0",
-    "ts-node": "^8.10.2",
     "typescript": "^3.9.5"
   },
   "lint-staged": {
