@@ -1,5 +1,7 @@
 # System
 .DS_Store
+.tool-versions
+.idea
 
 # Dependencies
 node_modules
